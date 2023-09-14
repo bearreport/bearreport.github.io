@@ -42,8 +42,11 @@
         </div>
         <div class="logo">Q4 WARS</div>
         <div class="links">
-            <div href="https://github.com/bearreport">GitHub</div>
-            <div href="https://www.linkedin.com/in/bayerjosh/">LinkedIn</div>
+            <div id="github"></div>
+            </div>
+
+            <div id="linkedin">
+            </div>
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -83,6 +86,44 @@
                             }
                         });
                     });
+                }
+            }
+            function triggerLightspeedEffect() {
+                app.ticker.remove();
+                app.ticker.add(() => {
+                    this.starfield.forEach((star) => {});
+                });
+            }
+
+            function calculateStarPath(star, fixedPoint) {
+                // holy hell I remember how to do trigonometry
+                const angle = Math.atan2(
+                    star.y - fixedPoint.y,
+                    star.x - fixedPoint.x
+                );
+                const distance = Math.sqrt(
+                    (star.x - fixedPoint.x) ** 2 + (star.y - fixedPoint.y) ** 2
+                );
+
+                const newX = fixedPoint.x + distance * Math.cos(angle);
+                const newY = fixedPoint.y + distance * Math.sin(angle);
+
+                return { newX, newY };
+            }
+
+            function animateStarsToEdges() {
+                const fixedPoint = {
+                    x: app.screen.width / 2,
+                    y: app.screen.height / 2,
+                };
+
+                for (const star of stars) {
+                    const { newX, newY } = calculateStarPath(star, fixedPoint);
+
+                    const tween = new TWEEN.Tween(star)
+                        .to({ x: newX, y: newY }, 1000)
+                        .easing(TWEEN.Easing.Linear.None)
+                        .start();
                 }
             }
             setTimeout(function () {

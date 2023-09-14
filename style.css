@@ -1,0 +1,199 @@
+body,
+html {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.overlay-container {
+    position: absolute;
+    display: none;
+    bottom: 0;
+    right: 0;
+    text-wrap: wrap;
+    text-align: center;
+    width: 100vw;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(216, 216, 14);
+    animation: moveUp 36s linear forwards;
+    transform-origin: 50% 100%;
+    transform: perspective(350px) rotateX(8deg);
+}
+
+.overlay-container > p {
+    text-align: left;
+    position: relative;
+    font-size: 6.5em;
+    font-weight: 700;
+    width: 160vw;
+    left: -16vw;
+}
+
+.overlay-container > h2 {
+    left: -20vw;
+    text-align: center;
+    font-size: 7em;
+}
+
+.overlay-container > h1 {
+    text-align: center;
+    left: -24vw;
+    position: relative;
+    text-wrap: wrap;
+    width: 160vw;
+    font-size: 8em;
+}
+
+.longtimeago {
+    width: 100%;
+    height: 100%;
+    font-weight: 700;
+    font-size: 2em;
+    color: #4ee;
+    background-color: black;
+    overflow: hidden;
+    position: relative;
+    text-wrap: wrap;
+    text-align: left;
+}
+
+.longtimeago > div {
+    position: absolute;
+    left: 30vw;
+    margin-right: 1em;
+    top: 40vh;
+    right: 0;
+    margin-left: auto;
+}
+
+.logo {
+    -webkit-text-stroke: 5px;
+    stroke: 5px;
+    color: yellow;
+    font-size: 16em;
+    opacity: 0;
+    z-index: 1;
+    animation: logo 1.8s ease-out 2.5s;
+    position: absolute;
+    text-align: center;
+    top: 20vh;
+    left: 10%;
+}
+
+.links {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    opacity: 0;
+    background-color: rgb(0, 0, 0, 0);
+    border: 1px solid yellow;
+    color: yellow;
+    top: 45vh;
+    left: 25%;
+    animation: links;
+    animation-delay: 35s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+.links > div {
+    border: 1px solid yellow;
+    padding: 20px;
+}
+
+@media only screen and (min-width: 820px /3) {
+    .overlay-container {
+        color: purple;
+    }
+    .overlay-container > p {
+        font-size: 2em;
+        width: 90vw;
+    }
+    .overlay-container > h2 {
+        font-size: 3.25em;
+    }
+    .overlay-container > h1 {
+        font-size: 4em;
+    }
+    .logo {
+        left: -10vw;
+    }
+}
+@media only screen and (min-width: 1280px /3) {
+    .overlay-container {
+        color: blue;
+    }
+    .overlay-container > p {
+        font-size: 1.2em;
+        width: 80vw;
+    }
+    .overlay-container > h2 {
+        font-size: 3.5em;
+    }
+    .overlay-container > h1 {
+        font-size: 4em;
+    }
+    .logo {
+        left: -30vw;
+    }
+}
+@keyframes intro {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes logo {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        top: 100%;
+    }
+    90% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 0.2;
+    }
+    100% {
+        top: -270%;
+        opacity: 0;
+    }
+}
+
+@keyframes links {
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}

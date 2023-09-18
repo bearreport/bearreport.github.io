@@ -219,22 +219,22 @@
             const body = document.getElementById("body");
             const linkedin = document.getElementById("linkedin");
             linkedin.addEventListener("click", (event) => {
-                triggerLightspeedEffect();
                 body.addEventListener("animationend", (event) => {
                     if (event.animationName === "hyperspace") {
                         window.location.href =
                             "https://www.linkedin.com/in/bayerjosh/";
                     }
                 });
+                triggerLightspeedEffect();
             });
             const github = document.getElementById("github");
             github.addEventListener("click", (event) => {
-                triggerLightspeedEffect();
                 body.addEventListener("animationend", (event) => {
                     if (event.animationName === "hyperspace") {
                         window.location.href = "https://github.com/bearreport";
                     }
                 });
+                triggerLightspeedEffect();
             });
         </script>
     </body>

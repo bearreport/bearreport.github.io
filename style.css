@@ -27,12 +27,12 @@ html {
     bottom: 0;
     white-space: wrap;
     text-align: center;
-    z-index: 2;
+    z-index: 25;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(216, 216, 14);
     animation: moveUp 45s linear forwards;
-    transform-origin: bottom;
-    transform: perspective(350px) rotateX(8deg);
+    -webkit-transform-origin: bottom;
+    -webkit-transform: perspective(350px) rotateX(8deg);
 }
 
 .overlay-container > p {

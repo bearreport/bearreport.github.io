@@ -10,30 +10,31 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         ></script>
+        <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
     </head>
-    <body>
+    <body id="body">
         <div class="overlay-container" id="overlay">
             <h2>Episode X</h2>
             <h1>THE QUEST TO PLEASE UPPER MANAGEMENT</h1>
+
             <p>
                 It is a time of confusion. Conflicting demands to cut costs and
                 drive growth have hiring managers desperate for a solution to
                 their plight.
             </p>
             <p>
-                During the battle, the temp alliance reaches out and presents
-                JOSH BAYER, their ultimate full-stack development weapon, a man
-                who thinks about what his docker containers are doing when he's
-                out with his friends.
+                During the battle, the alliance reaches out and presents JOSH
+                BAYER, their ultimate full-stack development weapon, a man who
+                thinks about what his docker containers are doing when he's out
+                with his friends.
             </p>
             <p>
-                Pursued by the Economy's Sinister Agents, THE SMARTEST HIRING
-                MANAGER TO HAVE EVER LIVED ponders making a decision that will
-                alter the path of The Walt Disney Corporation forever…
+                Pursued by the Economy's Sinister Agents, Regent Recruiter,
+                steward of the company's fate, ponders making a decision that
+                will alter the path of The Walt Disney Company forever…
             </p>
         </div>
 
-        <!-- <div class="recruiterwars">RECRUITER WARS</div> -->
         <div class="longtimeago" id="galaxyfarfaraway">
             <div>
                 A few hours ago, after a productive call with your account
@@ -41,102 +42,198 @@
             </div>
         </div>
         <div class="logo">Q4 WARS</div>
-        <div class="links">
-            <div id="github">
-                <a href="https://github.com/bearreport">GitHub</a>
-            </div>
-
-            <div id="linkedin">
-                <a href="https://www.linkedin.com/in/bayerjosh/">LinkedIn</a>
-            </div>
+        <div class="links" id="links">
+            <div id="github">GitHub</div>
+            <div id="linkedin">LinkedIn</div>
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                drawStarField();
+            let lightspeedEffectTriggered = false;
+            let starfield = new PIXI.Container();
+
+            const app = new PIXI.Application({
+                width: window.innerWidth,
+                height: window.innerHeight,
+                backgroundColor: 0x000000,
             });
+
+            starfield.addChild(createStar()); //initalize with a star for future array functions
+
             function drawStarField() {
-                {
-                    const app = new PIXI.Application({
-                        width: window.innerWidth,
-                        height: window.innerHeight,
-                        backgroundColor: 0x000000,
-                    });
+                document.body.appendChild(app.view);
 
-                    document.body.appendChild(app.view);
-
-                    function createStar() {
-                        const star = new PIXI.Graphics();
-                        star.beginFill(0xffffff);
-                        star.drawCircle(0, 0, Math.random() * 2);
-                        star.endFill();
-                        star.x = Math.random() * app.screen.width;
-                        star.y = Math.random() * app.screen.height;
-                        return star;
-                    }
-
-                    const starfield = new PIXI.Container();
-                    for (let i = 0; i < 1000; i++) {
-                        starfield.addChild(createStar());
-                    }
-                    app.stage.addChild(starfield);
-
-                    app.ticker.add(() => {
-                        starfield.children.forEach((star) => {
-                            star.x += star.scale.x * 0.1;
-                            if (star.x > app.screen.width) {
-                                star.x = 0;
-                            }
-                        });
-                    });
+                for (let i = 0; i < 1000; i++) {
+                    starfield.addChild(createStar());
                 }
-            }
-            function triggerLightspeedEffect() {
-                app.ticker.remove();
+                app.stage.addChild(starfield);
+
                 app.ticker.add(() => {
-                    this.starfield.forEach((star) => {});
+                    starfield.children.forEach((star) => {
+                        star.x += star.scale.x * 0.1;
+                        if (star.x > app.screen.width) {
+                            star.x = 0;
+                        }
+                    });
                 });
             }
 
+            function createStar() {
+                const star = new PIXI.Graphics();
+                star.beginFill(0xffffff);
+                star.drawCircle(0, 0, Math.random() * 2);
+                star.endFill();
+                star.x = Math.random() * app.screen.width;
+                star.y = Math.random() * app.screen.height;
+                return star;
+            }
+
+            function triggerLightspeedEffect() {
+                const screenRatio = window.devicePixelRatio;
+                lightspeedEffectTriggered = true;
+                const originalStarPositions = starfield.children.map(
+                    (star) => ({
+                        x: Math.floor(star.x),
+                        y: Math.floor(star.y),
+                    })
+                );
+
+                const fixedPoint = {
+                    x: (window.screen.width / 2) * screenRatio,
+                    y: (window.screen.height / 2) * screenRatio,
+                };
+
+                starfield.children.forEach((star) => {
+                    const { newX, newY } = calculateStarPath(star, fixedPoint);
+                    const base = Math.abs(newX - star.x);
+                    const height = Math.abs(newY - star.y);
+                    const hypo = Math.sqrt(base ** 2 + height ** 2);
+                    //there's a bug in this where there are stars that are "stragglers"
+                    //if the rate of movement to the left edge is the same or only slightly more than the tick
+                    //the star gets stuck on the left edge for a while
+                    //find a method to remove the tick before initating the movement?
+                    createjs.Tween.get(star)
+                        .to({ x: newX, y: newY }, (1 / hypo) * 100000)
+                        .to({ alpha: 0 }, 1000);
+                });
+
+                document.getElementById("body").classList.add("hyperspace");
+            }
+
             function calculateStarPath(star, fixedPoint) {
-                // holy hell I remember how to do trigonometry
+                //do a hyperspace effect it'll take an hour he said
+                const screenRatio = window.devicePixelRatio;
+                const screenWidth = window.screen.width * screenRatio;
+                const screenHeight = window.screen.height * screenRatio;
+
+                //use absolute values and do all the math relative to difference in the center point
                 const angle = Math.atan2(
-                    star.y - fixedPoint.y,
-                    star.x - fixedPoint.x
-                );
-                const distance = Math.sqrt(
-                    (star.x - fixedPoint.x) ** 2 + (star.y - fixedPoint.y) ** 2
+                    Math.abs(star.y - fixedPoint.y),
+                    Math.abs(star.x - fixedPoint.x)
                 );
 
-                const newX = fixedPoint.x + distance * Math.cos(angle);
-                const newY = fixedPoint.y + distance * Math.sin(angle);
+                //Same as above
+                const deltaX = Math.abs(fixedPoint.x - star.x);
+                const deltaY = Math.abs(fixedPoint.y - star.y);
 
+                let newX, newY;
+
+                // All movement is relative to the fixedPoint & expressed in absolute terms relative to (0,0).
+                // Determine the quadrant of the star and move it the appropriate way.
+                // Every star will hit one of the four bounds (x=0, y=0, screenWidth or screenHeight) and move some amount more "away" from the fixedPoint
+                // When calculating the destination, the "movement" is relative in terms of 0,0 being the upper left portion of the grid
+                // up left movement is negative to y and negative x
+                // up right movement is negative to y and positive to x
+                // down left movement is positive to y and negative to x
+                // down right movement is positive to y and positive to x
+
+                if (star.x <= fixedPoint.x && star.y <= fixedPoint.y) {
+                    // Upper left quadrant, between (0,0) and fixedPoint
+                    const base = fixedPoint.x - deltaX; //calculate the base of the triangle
+                    const height = base * Math.tan(angle); //calculate it's height.  If the height is "in bounds", we intersect at star.y - height and x= 0
+                    if (height < star.y) {
+                        newX = 0;
+                        newY = star.y - height;
+                    } else {
+                        //if the height is out of bounds, calculate the base of the sub-triangle. The new delta Y is relative to the 0,0 coordinate. In this case, star.y;
+                        const subDeltaX = star.y * Math.tan(angle);
+                        newX = star.x - subDeltaX;
+                        newY = 0;
+                    }
+                } else if (star.x >= fixedPoint.x && star.y <= fixedPoint.y) {
+                    //Upper right quadrant, between (width, 0) and fixedPoint
+                    const base = fixedPoint.x - deltaX;
+                    const height = base * Math.tan(angle);
+                    if (height < star.y) {
+                        newX = screenWidth;
+                        newY = star.y - height;
+                    } else {
+                        const subDeltaX = star.y * Math.tan(angle);
+                        newX = star.x + subDeltaX;
+                        newY = 0;
+                    }
+                } else if (star.x <= fixedPoint.x && star.y >= fixedPoint.y) {
+                    //bottom left quadrant, between (0, height) and fixedPoint
+                    const base = fixedPoint.x - deltaX;
+                    const height = base * Math.tan(angle);
+                    if (star.y + height < screenHeight) {
+                        newX = 0;
+                        newY = star.y + height;
+                    } else {
+                        const subDeltaX =
+                            (screenHeight - star.y) * Math.tan(angle);
+                        newX = star.x - subDeltaX;
+                        newY = screenHeight;
+                    }
+                } else if (star.x >= fixedPoint.x && star.y >= fixedPoint.y) {
+                    //bottom right quadrant, between (width, height) and fixedPoint
+                    const base = fixedPoint.x - deltaX;
+                    const height = base * Math.tan(angle);
+                    if (star.y + height < screenHeight) {
+                        newX = screenWidth;
+                        newY = star.y + height;
+                    } else {
+                        const subDeltaX =
+                            (screenHeight - star.y) * Math.tan(angle);
+                        newX = star.x + subDeltaX;
+                        newY = screenHeight;
+                    }
+                }
                 return { newX, newY };
             }
 
-            function animateStarsToEdges() {
-                const fixedPoint = {
-                    x: app.screen.width / 2,
-                    y: app.screen.height / 2,
-                };
-
-                for (const star of stars) {
-                    const { newX, newY } = calculateStarPath(star, fixedPoint);
-
-                    const tween = new TWEEN.Tween(star)
-                        .to({ x: newX, y: newY }, 1000)
-                        .easing(TWEEN.Easing.Linear.None)
-                        .start();
-                }
-            }
             setTimeout(function () {
-                document.getElementById("overlay").style.display = "block";
+                document.getElementById("overlay").style.display = "flex";
             }, 4000); // Delay matches the animation duration
             setTimeout(function () {
                 document.getElementById("galaxyfarfaraway").style.display =
                     "none";
             }, 2000); // Delay matches the animation duration
-            addEventListener("resize", (event) => {
+            document.addEventListener("DOMContentLoaded", () => {
                 drawStarField();
+            });
+            const crawl = document.getElementById("overlay");
+            crawl.addEventListener("animationend", () => {
+                crawl.style.display = "none";
+            });
+            //what follows is really hacky and I'm not proud of it
+            const body = document.getElementById("body");
+            const linkedin = document.getElementById("linkedin");
+            linkedin.addEventListener("click", (event) => {
+                triggerLightspeedEffect();
+                body.addEventListener("animationend", (event) => {
+                    if (event.animationName === "hyperspace") {
+                        window.location.href =
+                            "https://www.linkedin.com/in/bayerjosh/";
+                    }
+                });
+            });
+            const github = document.getElementById("github");
+            github.addEventListener("click", (event) => {
+                triggerLightspeedEffect();
+                body.addEventListener("animationend", (event) => {
+                    if (event.animationName === "hyperspace") {
+                        window.location.href = "https://github.com/bearreport";
+                    }
+                });
             });
         </script>
     </body>

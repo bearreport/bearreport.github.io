@@ -7,48 +7,56 @@ html {
     padding: 0;
     overflow-x: hidden;
     overflow-y: hidden;
-    height: 110%;
-    width: 101%;
+    height: 100%;
+    width: 100%;
     z-index: 1;
+}
+
+.hyperspace {
+    animation: hyperspace 3s linear forwards;
 }
 
 .overlay-container {
     position: absolute;
     display: none;
-    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
     right: 0;
-    text-wrap: wrap;
+    bottom: 0;
+    white-space: wrap;
     text-align: center;
-    width: 100vw;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(216, 216, 14);
-    animation: moveUp 36s linear forwards;
-    transform-origin: 50% 100%;
+    animation: moveUp 45s linear forwards;
+    transform-origin: bottom;
     transform: perspective(350px) rotateX(8deg);
 }
 
 .overlay-container > p {
-    text-align: left;
+    flex-shrink: none;
+    text-align: justify;
     position: relative;
+    justify-content: center;
     font-size: 6.5em;
     font-weight: 700;
-    width: 160vw;
-    left: -16vw;
+    text-wrap: wrap;
+    width: 120vw;
+    left: -10vw;
+    right: 0;
 }
 
 .overlay-container > h2 {
-    left: -20vw;
+    position: relative;
     text-align: center;
     font-size: 7em;
 }
 
 .overlay-container > h1 {
     text-align: center;
-    left: -24vw;
     position: relative;
     text-wrap: wrap;
-    width: 160vw;
     font-size: 8em;
 }
 
@@ -56,7 +64,7 @@ html {
     width: 100%;
     height: 100%;
     font-weight: 700;
-    font-size: 2em;
+    font-size: 2.25em;
     color: #4ee;
     background-color: black;
     overflow: hidden;
@@ -84,8 +92,8 @@ html {
     animation: logo 1.8s ease-out 2.5s;
     position: absolute;
     text-align: center;
+    justify-content: center;
     top: 20vh;
-    left: 10%;
 }
 
 .links {
@@ -101,7 +109,7 @@ html {
     top: 45vh;
     left: 25%;
     animation: links;
-    animation-delay: 35s;
+    animation-delay: 46s;
     animation-duration: 3s;
     animation-fill-mode: forwards;
 }
@@ -111,49 +119,35 @@ html {
     padding: 20px;
 }
 
-@media only screen and (min-width: 820dpi) {
+@media screen and (min-width: 1024px) {
+    /* this is a very hacky implementation of responsive web design but time crunch means it has to do for now */
     .overlay-container {
-        width: 100vw;
+        transform: perspective(350px) rotateX(16deg);
     }
     .overlay-container > p {
-        font-size: 2em;
-        width: 90vw;
-    }
-    .overlay-container > h2 {
-        font-size: 3.25em;
-    }
-    .overlay-container > h1 {
-        font-size: 4em;
-    }
-    .logo {
-        left: -10vw;
-    }
-}
-@media only screen and (min-width: 1280px) {
-    .overlay-container {
-        width: 50vw;
+        width: 60vw;
+        font-size: 3.5em;
         left: 22vw;
     }
-    .overlay-container > p {
-        font-size: 3em;
-        width: 60vw;
-        left: 0vw;
-    }
     .overlay-container > h2 {
-        font-size: 6em;
+        font-size: 4em;
     }
     .overlay-container > h1 {
-        left: -7vw;
-        font-size: 7em;
-        width: 70vw;
+        width: 60vw;
+        left: 22vw;
+        font-size: 5em;
+    }
+    .longtimeago {
+        font-size: 1.5em;
     }
     .logo {
         left: 20vw;
     }
     .links {
-        left: 33vw;
+        left: 35vw;
     }
 }
+
 @keyframes intro {
     0% {
         opacity: 1;
@@ -182,7 +176,7 @@ html {
 
 @keyframes moveUp {
     0% {
-        top: 100%;
+        top: 160%;
     }
     90% {
         opacity: 1;
@@ -202,5 +196,26 @@ html {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes hyperspace {
+    0% {
+        background-color: rgba(60, 73, 255, 0);
+    }
+    10% {
+        opacity: 0.6;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    80% {
+        opacity: 1;
+    }
+    90% {
+        background-color: aliceblue;
+    }
+    100% {
+        background-color: rgb(0, 0, 0, 0);
     }
 }

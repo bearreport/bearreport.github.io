@@ -32,6 +32,7 @@ html {
     animation: moveUp 45s linear forwards;
     transform-origin: bottom;
     transform: perspective(350px) rotateX(8deg);
+    -webkit-transform: perspective(350px) rotateX(8deg);
 }
 
 .overlay-container > p {
@@ -123,6 +124,7 @@ html {
     /* this is a very hacky implementation of responsive web design but time crunch means it has to do for now */
     .overlay-container {
         transform: perspective(350px) rotateX(16deg);
+        -webkit-transform: perspective(350px) rotateX(16deg);
     }
     .overlay-container > p {
         width: 60vw;

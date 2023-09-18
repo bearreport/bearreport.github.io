@@ -33,9 +33,6 @@ html {
     animation: moveUp 45s linear forwards;
     transform-origin: bottom;
     transform: perspective(350px) rotateX(8deg);
-    -webkit-transform: perspective(350px) rotateX(8deg);
-    -moz-transform: perspective(350px) rotateX(8deg);
-    -o-transform: perspective(350px) rotateX(8deg);
 }
 
 .overlay-container > p {

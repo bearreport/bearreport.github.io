@@ -30,11 +30,12 @@ html {
     background-color: rgba(0, 0, 0, 0);
     color: rgb(216, 216, 14);
     animation: moveUp 45s linear forwards;
+    transform-style: preserve-3d;
     transform-origin: bottom;
-    transform: perspective(350px) rotateX(8deg);
-    -webkit-transform: perspective(350px) rotateX(8deg);
-    -moz-transform: perspective(350px) rotateX(8deg);
-    -o-transform: perspective(350px) rotateX(8deg);
+    transform: perspective(350px) rotateX(8deg) translateZ(0);
+    -webkit-transform: perspective(350px) rotateX(8deg) translateZ(0);
+    -moz-transform: perspective(350px) rotateX(8deg) translateZ(0);
+    -o-transform: perspective(350px) rotateX(8deg) translateZ(0);
 }
 
 .overlay-container > p {
@@ -125,10 +126,10 @@ html {
 @media screen and (min-width: 1024px) {
     /* this is a very hacky implementation of responsive web design but time crunch means it has to do for now */
     .overlay-container {
-        transform: perspective(350px) rotateX(16deg);
-        -webkit-transform: perspective(350px) rotateX(16deg);
-        -moz-transform: perspective(350px) rotateX(16deg);
-        -o-transform: perspective(350px) rotateX(16deg);
+        transform: perspective(350px) rotateX(16deg) translateZ(0);
+        -webkit-transform: perspective(350px) rotateX(16deg) translateZ(0);
+        -moz-transform: perspective(350px) rotateX(16deg) translateZ(0);
+        -o-transform: perspective(350px) rotateX(16deg) translateZ(0);
     }
     .overlay-container > p {
         width: 60vw;

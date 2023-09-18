@@ -19,7 +19,7 @@ html {
 
 .overlay-container {
     position: absolute;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     left: 0;

@@ -129,7 +129,7 @@ html {
     padding: 20px;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 800px) {
     /* this is a very hacky implementation of responsive web design but time crunch means it has to do for now */
     .overlay-container {
         transform: perspective(350px) rotateX(16deg);

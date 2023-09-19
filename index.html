@@ -218,9 +218,9 @@
             crawl.addEventListener("animationend", () => {
                 crawl.style.display = "none";
             });
-            //what follows is really hacky and I'm not proud of it
-            const body = document.getElementById("body");
-			const linkedin = document.getElementById("linkedin");
+
+const body = document.getElementById("body");
+const linkedin = document.getElementById("linkedin");
 linkedin.addEventListener("click", handleLinkClick);
 linkedin.addEventListener("touchstart", handleLinkTouch);
 
@@ -242,7 +242,7 @@ function handleLinkTouch(event) {
     triggerLightspeedEffect();
 }
 
-            const github = document.getElementById("github");
+const github = document.getElementById("github");
 github.addEventListener("click", handleLinkClick);
 github.addEventListener("touchstart", handleLinkTouch);
 

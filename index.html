@@ -220,25 +220,50 @@
             });
             //what follows is really hacky and I'm not proud of it
             const body = document.getElementById("body");
-            const linkedin = document.getElementById("linkedin");
-            linkedin.addEventListener("click" && "touchstart", (event) => {
-                body.addEventListener("animationend", (event) => {
-                    if (event.animationName === "hyperspace") {
-                        window.location.href =
-                            "https://www.linkedin.com/in/bayerjosh/";
-                    }
-                });
-				triggerLightspeedEffect();
-			});
+			const linkedin = document.getElementById("linkedin");
+linkedin.addEventListener("click", handleLinkClick);
+linkedin.addEventListener("touchstart", handleLinkTouch);
+
+function handleLinkClick(event) {
+    body.addEventListener("animationend", (event) => {
+        if (event.animationName === "hyperspace") {
+            window.location.href = "https://www.linkedin.com/in/bayerjosh/";
+        }
+    });
+    triggerLightspeedEffect();
+}
+
+function handleLinkTouch(event) {
+    body.addEventListener("animationend", (event) => {
+        if (event.animationName === "hyperspace") {
+            window.location.href = "https://www.linkedin.com/in/bayerjosh/";
+        }
+    });
+    triggerLightspeedEffect();
+}
+
             const github = document.getElementById("github");
-            github.addEventListener("click" && "touchstart", (event) => {
-                body.addEventListener("animationend", (event) => {
-                    if (event.animationName === "hyperspace") {
-                        window.location.href = "https://github.com/bearreport";
-                    }
-                });
-                triggerLightspeedEffect();
-            });
+github.addEventListener("click", handleLinkClick);
+github.addEventListener("touchstart", handleLinkTouch);
+
+function handleLinkClick(event) {
+    body.addEventListener("animationend", (event) => {
+        if (event.animationName === "hyperspace") {
+            window.location.href = "https://github.com/bearreport";
+        }
+    });
+    triggerLightspeedEffect();
+}
+
+function handleLinkTouch(event) {
+    body.addEventListener("animationend", (event) => {
+        if (event.animationName === "hyperspace") {
+            window.location.href = "https://github.com/bearreport";
+        }
+    });
+    triggerLightspeedEffect();
+}
+
         </script>
     </body>
 </html>

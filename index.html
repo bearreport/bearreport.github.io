@@ -13,6 +13,14 @@
         <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
     </head>
     <body id="body">
+
+			<div class="longtimeago" id="galaxyfarfaraway">
+				<div>
+					A few hours ago, after a productive call with your account
+					manager...
+				</div>
+			</div>
+			<div id="space">
         <div class="overlay-container" id="overlay">
             <h2>Episode X</h2>
             <h1>THE QUEST TO PLEASE UPPER MANAGEMENT</h1>
@@ -22,7 +30,6 @@
                 drive growth have hiring managers desperate for a solution to
                 their plight.
             </p>
-            <img src="star-wars-hans-solo.gif" alt="Hans Solo" />
             <p>
                 During the battle, the alliance reaches out and presents JOSH
                 BAYER, their ultimate full-stack development weapon, a man who
@@ -36,12 +43,7 @@
             </p>
         </div>
 
-        <div class="longtimeago" id="galaxyfarfaraway">
-            <div>
-                A few hours ago, after a productive call with your account
-                manager...
-            </div>
-        </div>
+
         <div class="logo">Q4 WARS</div>
         <div class="links" id="links">
             <div id="github">GitHub</div>
@@ -60,7 +62,7 @@
             starfield.addChild(createStar()); //initalize with a star for future array functions
 
             function drawStarField() {
-                document.body.appendChild(app.view);
+                document.getElementById("space").appendChild(app.view);
 
                 for (let i = 0; i < 1000; i++) {
                     starfield.addChild(createStar());
@@ -116,7 +118,7 @@
                         .to({ alpha: 0 }, 1000);
                 });
 
-                document.getElementById("body").classList.add("hyperspace");
+                document.getElementById("space").classList.add("hyperspace");
             }
 
             function calculateStarPath(star, fixedPoint) {
@@ -207,6 +209,7 @@
             setTimeout(function () {
                 document.getElementById("galaxyfarfaraway").style.display =
                     "none";
+				document.getElementById("space").style.display ="block";
             }, 2000); // Delay matches the animation duration
             document.addEventListener("DOMContentLoaded", () => {
                 drawStarField();

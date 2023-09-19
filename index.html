@@ -44,7 +44,7 @@
         </div>
 
 
-        <div class="logo">Q4 WARS</div>
+        <div class="logo" id="logo">Q4 WARS</div>
         <div class="links" id="links">
             <div id="github">GitHub</div>
             <div id="linkedin">LinkedIn</div>
@@ -207,8 +207,10 @@
                 document.getElementById("overlay").style.display = "flex";
             }, 4000); // Delay matches the animation duration
             setTimeout(function () {
-                document.getElementById("galaxyfarfaraway").style.display =
-                    "none";
+                const galaxy = document.getElementById("galaxyfarfaraway");
+				galaxy.style.display = "none";
+				galaxy.remove();
+				
 				document.getElementById("space").style.display ="block";
             }, 2000); // Delay matches the animation duration
             document.addEventListener("DOMContentLoaded", () => {
@@ -217,7 +219,13 @@
             const crawl = document.getElementById("overlay");
             crawl.addEventListener("animationend", () => {
                 crawl.style.display = "none";
+				crawl.remove();
             });
+			const logo = document.getElementById("logo");
+			logo.addEventListener("animationend", () => {
+				logo.style.display = "none";
+				logo.remove();
+			});
 
 const body = document.getElementById("body");
 const linkedin = document.getElementById("linkedin");

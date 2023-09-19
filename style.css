@@ -120,6 +120,7 @@ html {
     animation: links;
     animation-delay: 46s;
     animation-duration: 3s;
+    z-index: 99;
     animation-fill-mode: forwards;
 }
 
